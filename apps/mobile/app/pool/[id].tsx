@@ -157,13 +157,22 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "800",
   },
+  label: {
+    color: "#64748b",
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+    marginBottom: 8,
+    textTransform: "uppercase",
+  },
+  id: {
+    color: "#f1f5f9",
+    fontFamily: "monospace",
+    fontSize: 16,
+    marginBottom: 24,
+  },
   adminList: {
     gap: 6,
-  },
-  adminAddress: {
-    color: "#e2e8f0",
-    fontSize: 12,
-    fontFamily: "monospace",
   },
   historyCard: {
     backgroundColor: "#111827",
@@ -196,12 +205,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   historyButtonText: {
-    color: "#e2e8f0",
     fontSize: 12,
     fontWeight: "700",
     color: "#f1f5f9",
-    marginBottom: 24,
-    fontFamily: "monospace",
   },
   section: {
     marginBottom: 20,

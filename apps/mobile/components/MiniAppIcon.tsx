@@ -1,13 +1,15 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import type { BridgePermission } from "../mini-apps/permissions";
+
 export interface MiniApp {
   id: string;
   name: string;
   icon: string;
   description: string;
   entry: string;
-  permissions: string[];
+  permissions: BridgePermission[];
 }
 
 interface MiniAppIconProps {

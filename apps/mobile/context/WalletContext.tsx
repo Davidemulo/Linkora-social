@@ -40,9 +40,7 @@ interface StoredConnectionState {
 }
 
 interface WalletConnectLike {
-  connect: (
-    network: NetworkPreset
-  ) => Promise<{ publicKey?: string; address?: string }>;
+  connect: (network: NetworkPreset) => Promise<{ publicKey?: string; address?: string }>;
   disconnect: () => Promise<void>;
   getPublicKey?: () => Promise<string>;
   isConnected?: () => Promise<boolean>;
@@ -278,7 +276,7 @@ export function WalletProvider({ children }: WalletProviderProps): JSX.Element {
           if (currentAddress === storedAddress) {
             setWallet({
               address: currentAddress,
-              network: selectedNetwork.label,
+              network: selectedNetwork.id,
               provider: "walletconnect",
             });
             setState("connected");
@@ -296,7 +294,7 @@ export function WalletProvider({ children }: WalletProviderProps): JSX.Element {
       setState("error");
       setError(err instanceof Error ? err.message : "Unknown error");
     }
-  }, [walletKit, selectedNetwork.label]);
+  }, [walletKit, selectedNetwork.id]);
 
   useEffect(() => {
     if (walletKit) {
@@ -320,9 +318,8 @@ export function WalletProvider({ children }: WalletProviderProps): JSX.Element {
             throw new Error("WalletConnect is not available");
           }
 
-          const result: { publicKey?: string; address?: string } = await walletKit.connect(
-            selectedNetwork
-          );
+          const result: { publicKey?: string; address?: string } =
+            await walletKit.connect(selectedNetwork);
           address = result.publicKey ?? result.address ?? null;
 
           if (typeof walletKit.getPublicKey === "function") {
@@ -342,7 +339,7 @@ export function WalletProvider({ children }: WalletProviderProps): JSX.Element {
 
         await Promise.all([setWalletAddress(address), setConnectionState(connState)]);
 
-        setWallet({ address, network: selectedNetwork.label, provider });
+        setWallet({ address, network: selectedNetwork.id, provider });
         setState("connected");
       } catch (err) {
         setState("error");
@@ -377,10 +374,10 @@ export function WalletProvider({ children }: WalletProviderProps): JSX.Element {
     if (wallet.address) {
       setWallet((current) => ({
         ...current,
-        network: selectedNetwork.label,
+        network: selectedNetwork.id,
       }));
     }
-  }, [selectedNetwork.label, wallet.address]);
+  }, [selectedNetwork.id, wallet.address]);
 
   const value: WalletContextType = {
     state,
